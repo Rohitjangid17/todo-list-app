@@ -74,6 +74,9 @@ const getTodoList = () => {
                 deleteButton.classList.add("btn")
                 deleteButton.classList.add("btn-danger")
                 todoAction.appendChild(deleteButton);
+                deleteButton.addEventListener("click", () => {
+                    onDeleteTodo(todo.id);
+                })
 
                 const editButton = document.createElement("button");
                 editButton.textContent = "Edit";
@@ -85,3 +88,18 @@ const getTodoList = () => {
 }
 
 getTodoList();
+
+const onDeleteTodo = async (id) => {
+    try {
+        const response = await fetch(`https://todo-list-app-7c986-default-rtdb.firebaseio.com/todo/${id}.json`, {
+            method: "DELETE"
+        });
+        if (response.ok) {
+            getTodoList();
+        } else {
+            throw new Error("Server went wrong");
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
