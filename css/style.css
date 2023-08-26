@@ -10,7 +10,7 @@
 .inventory-grid {
     display: grid;
     gap: 16px;
-    grid-template-columns: 58px 200px 182px 172px 110px;
+    grid-template-columns: 53px 150px 217px 165px 140px;
     padding: 10px 20px;
     background-color: white;
 }
@@ -27,19 +27,14 @@
     border-bottom-right-radius: 15px;
 }
 
-.delete-material-icon {
-    font-size: 22px;
-    cursor: pointer;
-}
-
-.edit-material-icon {
-    font-size: 22px;
-    cursor: pointer;
+.todo-action {
+    display: flex;
+    gap: 10px;
 }
 
 @media (min-width: 576px) {
     .inventory-grid {
-        grid-template-columns: 53px 212px 216px 143px 74px;
+        grid-template-columns: 53px 174px 215px 147px 138px;
     }
 
     .todo-list-screen {
@@ -49,7 +44,7 @@
 
 @media (min-width: 768px) {
     .inventory-grid {
-        grid-template-columns: 53px 212px 222px 139px 73px;
+        grid-template-columns: 53px 212px 222px 139px 133px;
     }
 
     .todo-list-screen {
@@ -59,7 +54,7 @@
 
 @media (min-width: 992px) {
     .inventory-grid {
-        grid-template-columns: 53px auto 240px 150px 73px;
+        grid-template-columns: 53px 144px 211px 142px 146px;
     }
 
     .todo-list-screen {
@@ -69,7 +64,7 @@
 
 @media (min-width: 1200px) {
     .inventory-grid {
-        grid-template-columns: 60px auto 247px 204px 93px;
+        grid-template-columns: 53px auto 215px 154px 142px;
     }
 
     .todo-list-screen {

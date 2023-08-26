@@ -1,4 +1,4 @@
-const onCreateTodo = (event) => {
+const onCreateTodo = async (event) => {
     event.preventDefault();
     const todoData = {
         name: document.getElementById("name").value,
@@ -6,31 +6,37 @@ const onCreateTodo = (event) => {
         mobileNumber: document.getElementById("mobileNumber").value
     };
 
-    fetch("https://todo-list-app-7c986-default-rtdb.firebaseio.com/todo.json", {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(todoData)
-    })
-        .then(res =>
-            res.json()
-        )
-        .then(res =>
-            JSON.stringify(res)
-        );
-    getTodoList();
+    try {
+        const response = await fetch("https://todo-list-app-7c986-default-rtdb.firebaseio.com/todo.json", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(todoData)
+        })
+
+        if (response.ok) {
+            getTodoList();
+        } else {
+            throw new Error("Server went wrong");
+        }
+    } catch (error) {
+        console.error(error);
+    }
+
 }
 
 const getTodoList = () => {
     fetch("https://todo-list-app-7c986-default-rtdb.firebaseio.com/todo.json")
         .then(res => {
             if (!res.ok) {
-                throw new Error('Server response was not ok!!');
+                throw new Error('Server Went Wrong');
             }
             return res.json();
         }).then(data => {
+            const todoScreen = document.querySelector(".todo-list-screen");
+            todoScreen.innerHTML = "";
             let todoList = [];
             for (const key in data) {
                 if (data.hasOwnProperty(key)) {
@@ -38,8 +44,44 @@ const getTodoList = () => {
                 }
             }
             for (const todo of todoList) {
-                console.log(todo.id)
+                const todoRow = document.createElement("div");
+                todoScreen.appendChild(todoRow);
+                todoRow.classList.add("inventory-grid");
+                todoRow.classList.add("border-bottom");
+
+                const id = document.createElement("div");
+                id.textContent = 1;
+                todoRow.append(id);
+
+                const name = document.createElement("div");
+                todoRow.appendChild(name);
+                name.textContent = todo.name;
+
+                const emailId = document.createElement("div");
+                todoRow.appendChild(emailId);
+                emailId.textContent = todo.emailId;
+
+                const mobileNumber = document.createElement("div");
+                todoRow.appendChild(mobileNumber);
+                mobileNumber.textContent = todo.mobileNumber;
+
+                const todoAction = document.createElement("div");
+                todoRow.appendChild(todoAction);
+                todoAction.classList.add("todo-action")
+
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Delete";
+                deleteButton.classList.add("btn")
+                deleteButton.classList.add("btn-danger")
+                todoAction.appendChild(deleteButton);
+
+                const editButton = document.createElement("button");
+                editButton.textContent = "Edit";
+                editButton.classList.add("btn")
+                editButton.classList.add("btn-primary")
+                todoAction.appendChild(editButton);
             }
         })
 }
+
 getTodoList();
