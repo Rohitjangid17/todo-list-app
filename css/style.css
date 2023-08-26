@@ -1,0 +1,78 @@
+.todo-list-container {
+    border-radius: 15px;
+}
+
+.todo-list-scroll {
+    display: grid;
+    overflow-x: scroll;
+}
+
+.inventory-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 58px 200px 182px 172px 110px;
+    padding: 10px 20px;
+    background-color: white;
+}
+
+.todo-list-header {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.todo-list-screen {
+    height: 29vh;
+    overflow-y: overlay;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.delete-material-icon {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.edit-material-icon {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+@media (min-width: 576px) {
+    .inventory-grid {
+        grid-template-columns: 53px 212px 216px 143px 74px;
+    }
+
+    .todo-list-screen {
+        height: 29vh;
+    }
+}
+
+@media (min-width: 768px) {
+    .inventory-grid {
+        grid-template-columns: 53px 212px 222px 139px 73px;
+    }
+
+    .todo-list-screen {
+        height: 29vh;
+    }
+}
+
+@media (min-width: 992px) {
+    .inventory-grid {
+        grid-template-columns: 53px auto 240px 150px 73px;
+    }
+
+    .todo-list-screen {
+        height: 29vh;
+    }
+}
+
+@media (min-width: 1200px) {
+    .inventory-grid {
+        grid-template-columns: 60px auto 247px 204px 93px;
+    }
+
+    .todo-list-screen {
+        height: 29vh;
+    }
+}
