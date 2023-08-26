@@ -18,22 +18,22 @@
                 <form class="border p-4 shadow-sm rounded-2 bg-white">
                     <div class="form-group">
                         <label class="form-label">Name</label>
-                        <input type="text" name="name" class="form-control shadow-none rounded-1"
+                        <input type="text" name="name" id="name" class="form-control shadow-none rounded-1"
                             placeholder="Enter your name">
                     </div>
 
                     <div class="form-group mt-3">
                         <label class="form-label">Email Address</label>
-                        <input type="email" name="email" class="form-control shadow-none rounded-1"
+                        <input type="email" name="email" id="emailId" class="form-control shadow-none rounded-1"
                             placeholder="Enter your email address">
                     </div>
 
                     <div class="form-group mt-3">
                         <label class="form-label">Mobile Number</label>
-                        <input type="number" name="number" class="form-control shadow-none rounded-1"
+                        <input type="number" name="number" id="mobileNumber" class="form-control shadow-none rounded-1"
                             placeholder="Enter your mobile number">
                     </div>
-                    <button type="submit" class="btn btn-success mt-3 rounded-1 fw-medium" (click)="onTodoAdd()">
+                    <button type="submit" class="btn btn-success mt-3 rounded-1 fw-medium" onclick="onCreateTodo(event)">
                         Add Todo
                     </button>
                 </form>
