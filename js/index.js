@@ -1,3 +1,6 @@
+let todoUpdate = false;
+let todoUpdateId = "";
+
 const onCreateTodo = async (event) => {
     event.preventDefault();
     const todoData = {
@@ -6,25 +9,28 @@ const onCreateTodo = async (event) => {
         mobileNumber: document.getElementById("mobileNumber").value
     };
 
-    try {
-        const response = await fetch("https://todo-list-app-7c986-default-rtdb.firebaseio.com/todo.json", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(todoData)
-        })
+    if (!todoUpdate) {
+        try {
+            const response = await fetch("https://todo-list-app-7c986-default-rtdb.firebaseio.com/todo.json", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(todoData)
+            })
 
-        if (response.ok) {
-            getTodoList();
-        } else {
-            throw new Error("Server went wrong");
+            if (response.ok) {
+                getTodoList();
+            } else {
+                throw new Error("Server went wrong");
+            }
+        } catch (error) {
+            console.error(error);
         }
-    } catch (error) {
-        console.error(error);
+    } else {
+        await onTodoUpdate(todoData);
     }
-
 }
 
 const getTodoList = () => {
@@ -83,6 +89,16 @@ const getTodoList = () => {
                 editButton.classList.add("btn")
                 editButton.classList.add("btn-primary")
                 todoAction.appendChild(editButton);
+
+                editButton.addEventListener('click', () => {
+                    todoUpdate = true;
+                    document.getElementById("name").value = todo.name;
+                    document.getElementById("emailId").value = todo.emailId;
+                    document.getElementById("mobileNumber").value = todo.mobileNumber;
+                    document.getElementById("todoBtn").textContent = "Update Todo";
+
+                    todoUpdateId = todo.id;
+                });
             }
         })
 }
@@ -93,6 +109,26 @@ const onDeleteTodo = async (id) => {
     try {
         const response = await fetch(`https://todo-list-app-7c986-default-rtdb.firebaseio.com/todo/${id}.json`, {
             method: "DELETE"
+        });
+        if (response.ok) {
+            getTodoList();
+        } else {
+            throw new Error("Server went wrong");
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+const onTodoUpdate = async (todoData) => {
+    try {
+        const response = await fetch(`https://todo-list-app-7c986-default-rtdb.firebaseio.com/todo/${todoUpdateId}.json`, {
+            method: "PUT",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(todoData)
         });
         if (response.ok) {
             getTodoList();
